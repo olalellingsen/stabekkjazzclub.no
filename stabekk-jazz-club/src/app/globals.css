@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #ebebeb;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #00040f;
     --foreground: #ededed;
   }
 }
@@ -28,4 +28,20 @@ body {
 
 h1 {
   @apply text-3xl;
+}
+
+h2 {
+  @apply text-xl;
+}
+
+.btn1 {
+  @apply bg-sky-900 rounded-full text-white px-8 py-2 hover:bg-sky-950 dark:bg-sky-100 dark:text-sky-900 dark:hover:bg-sky-200 text-lg;
+}
+
+.btn2 {
+  @apply bg-sky-100 hover:bg-sky-200 rounded-full px-8 py-2 dark:bg-sky-500 dark:text-sky-100 dark:hover:bg-sky-600 text-lg;
+}
+
+a {
+  @apply text-sky-900 dark:text-sky-300 underline hover:no-underline;
 }
