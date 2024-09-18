@@ -39,34 +39,38 @@ export default async function EventDetails({
   }
 
   return (
-    <section className="container">
+    <section className="max-w-screen-lg">
       <img
         src={event.img}
         alt={event.title}
         className="aspect-video object-cover"
       />
-      <div className="py-4 grid gap-4">
-        <h1>{event.title}</h1>
+      <div className="grid md:flex justify-between">
+        <div className="grid gap-2 py-2 md:py-4">
+          <h1>{event.title}</h1>
+          <h1>
+            {event.date.toDate().toLocaleDateString("nb-NO", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}{" "}
+            kl {event.date.toDate().toLocaleTimeString().slice(0, 5)}
+          </h1>
+          <p>
+            <a href={event.venueLink} target="_blank" rel="noopener noreferrer">
+              {event.venue}
+            </a>
+          </p>
+        </div>
 
-        <h1>
-          {event.date.toDate().toLocaleDateString()} kl.
-          {event.date.toDate().toLocaleTimeString().slice(0, 5)}
-        </h1>
-
-        <p>
-          <a href={event.venueLink} target="_blank" rel="noopener noreferrer">
-            {event.venue}
-          </a>
-        </p>
-
-        <div>
+        <div className="py-2 md:py-4">
           <Link href={event.tickets} target="_blank" className="">
             <button className="btn1">Billetter</button>
           </Link>
         </div>
-
-        <p>{event.description}</p>
       </div>
+
+      <p className="py-2">{event.description}</p>
     </section>
   );
 }

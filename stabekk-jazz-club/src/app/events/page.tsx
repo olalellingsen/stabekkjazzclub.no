@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { BeatLoader, ClipLoader } from "react-spinners";
 
 interface EventProps {
   id: string;
@@ -50,7 +51,11 @@ function Events() {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>; // Display a loading message while fetching
+    return (
+      <div className="flex justify-center pt-20">
+        <BeatLoader color="#075985" loading={loading} size={15} />
+      </div>
+    );
   }
 
   if (error) {
@@ -58,9 +63,10 @@ function Events() {
   }
 
   return (
-    <section className="container mx-auto">
+    <section>
       <h1 className="text-center">Kommende konserter</h1>
-      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <br />
+      <ul className="grid gap-4 md:grid-cols-2">
         {events.map((event) => (
           <EventCard {...event} />
         ))}
@@ -89,16 +95,20 @@ function EventCard({
         <img
           src={img}
           alt={title}
-          className="aspect-video object-cover hover:scale-[101%]"
+          className="aspect-video object-cover hover:scale-[102%] transition-transform duration-200"
         />
       </a>
 
       <div className="p-4 grid gap-2">
         <h2>{title}</h2>
-        <p>
-          {date.toDate().toLocaleDateString()} kl{" "}
-          {date.toDate().toLocaleTimeString().slice(0, 5)}
-        </p>
+        <h2>
+          {date.toDate().toLocaleDateString("nb-NO", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}{" "}
+          kl {date.toDate().toLocaleTimeString().slice(0, 5)}
+        </h2>
         <p>
           <a href={venueLink} target="_blank">
             {venue}
