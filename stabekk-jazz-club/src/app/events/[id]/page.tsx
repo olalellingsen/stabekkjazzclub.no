@@ -1,8 +1,8 @@
-import { db } from "../../../firebase"; // Adjust the path to your Firebase setup
+import { db } from "../../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import Link from "next/link";
-import { notFound } from "next/navigation"; // Next.js built-in function for 404
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface EventProps {
@@ -40,6 +40,12 @@ export default async function EventDetails({
 
   return (
     <section className="max-w-screen-lg">
+      <Link
+        className="text-body-color underline hover:no-underline py-2 block"
+        href="/events"
+      >
+        Tilbake til konserter
+      </Link>
       <img
         src={event.img}
         alt={event.title}
@@ -56,11 +62,15 @@ export default async function EventDetails({
             })}{" "}
             kl {event.date.toDate().toLocaleTimeString().slice(0, 5)}
           </h1>
-          <p>
-            <a href={event.venueLink} target="_blank" rel="noopener noreferrer">
-              {event.venue}
-            </a>
-          </p>
+
+          <Link
+            className="text-xl"
+            href={event.venueLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {event.venue}
+          </Link>
         </div>
 
         <div className="py-2 md:py-4">

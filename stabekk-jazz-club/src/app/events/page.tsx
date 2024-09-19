@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { BeatLoader, ClipLoader } from "react-spinners";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface EventProps {
   id: string;
@@ -53,9 +55,13 @@ function Events() {
   if (loading) {
     return (
       <div className="flex justify-center pt-20">
-        <BeatLoader color="#075985" loading={loading} size={15} />
+        <BeatLoader color="#075985" loading={loading} size={30} />
       </div>
     );
+  }
+
+  if (error) {
+    notFound(); // Show a 404 page if the event is not found
   }
 
   return (
@@ -86,13 +92,13 @@ function EventCard({
 }: EventProps) {
   return (
     <div className="rounded-lg overflow-hidden bg-white dark:bg-sky-950">
-      <a href={`/events/${id}`}>
+      <Link href={`/events/${id}`}>
         <img
           src={img}
           alt={title}
           className="aspect-video object-cover hover:scale-[102%] transition-transform duration-200"
         />
-      </a>
+      </Link>
 
       <div className="p-4 grid gap-2">
         <h2>{title}</h2>
@@ -105,17 +111,17 @@ function EventCard({
           kl {date.toDate().toLocaleTimeString().slice(0, 5)}
         </h2>
         <p>
-          <a href={venueLink} target="_blank">
+          <Link href={venueLink} target="_blank">
             {venue}
-          </a>
+          </Link>
         </p>
         <div className="flex justify-between pt-2">
-          <a href={tickets} target="blank">
+          <Link href={tickets} target="blank">
             <button className="btn1">Billetter</button>
-          </a>
-          <a href={`/events/${id}`} className="pt-5">
+          </Link>
+          <Link href={`/events/${id}`} className="pt-5">
             Les mer
-          </a>
+          </Link>
         </div>
       </div>
     </div>

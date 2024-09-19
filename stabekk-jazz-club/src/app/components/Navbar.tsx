@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Navbar = () => {
@@ -41,10 +42,16 @@ const Navbar = () => {
         </div>
         {/* desktop menu */}
         <nav className="hidden md:flex">
-          <ul className="flex gap-8 ">
-            <ListItem NavLink="/">Hjem</ListItem>
-            <ListItem NavLink="/events">Konserter</ListItem>
-            <ListItem NavLink="/about">Om klubben</ListItem>
+          <ul className="flex gap-8">
+            <ListItem NavLink="/" setOpen={setOpen}>
+              Hjem
+            </ListItem>
+            <ListItem NavLink="/events" setOpen={setOpen}>
+              Konserter
+            </ListItem>
+            <ListItem NavLink="/about" setOpen={setOpen}>
+              Om klubben
+            </ListItem>
           </ul>
         </nav>
       </div>
@@ -52,13 +59,19 @@ const Navbar = () => {
       {/* mobile menu */}
       <nav
         className={`${
-          open ? "fixed" : "hidden"
+          open ? "sticky" : "hidden"
         } bg-sky-50 dark:bg-sky-900 w-full p-4 md:hidden`}
       >
         <ul>
-          <ListItem NavLink="/">Hjem</ListItem>
-          <ListItem NavLink="/events">Konserter</ListItem>
-          <ListItem NavLink="/about">Om klubben</ListItem>
+          <ListItem NavLink="/" setOpen={setOpen}>
+            Hjem
+          </ListItem>
+          <ListItem NavLink="/events" setOpen={setOpen}>
+            Konserter
+          </ListItem>
+          <ListItem NavLink="/about" setOpen={setOpen}>
+            Om klubben
+          </ListItem>
         </ul>
       </nav>
     </header>
@@ -70,20 +83,26 @@ export default Navbar;
 const ListItem = ({
   children,
   NavLink,
+  setOpen,
 }: {
   children: React.ReactNode;
   NavLink: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  // Close the menu after clicking a link
+  const handleClick = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <li>
-        <a
-          href={NavLink}
-          className="flex py-2 text-base font-medium text-body-color hover:text-dark dark:text-white dark:hover:text-gray-400"
-        >
-          {children}
-        </a>
-      </li>
-    </>
+    <li>
+      <Link
+        href={NavLink}
+        onClick={handleClick} // Close the mobile menu when a link is clicked
+        className="flex py-2 text-lg font-medium text-body-color hover:text-dark dark:text-white dark:hover:text-gray-400"
+      >
+        {children}
+      </Link>
+    </li>
   );
 };
