@@ -58,10 +58,6 @@ function Events() {
     );
   }
 
-  if (error) {
-    return <p>{error}</p>; // Display the error message if there's an error
-  }
-
   return (
     <section>
       <h1 className="text-center">Kommende konserter</h1>

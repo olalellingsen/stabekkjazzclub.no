@@ -5,10 +5,15 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={`${open && "bg-sky-50 md:bg-background"}`}>
+    <header
+      className={`${
+        open &&
+        "bg-sky-50 dark:bg-sky-900 dark:md:bg-background md:bg-background"
+      }`}
+    >
       <div className="flex gap-2 justify-between py-4 px-4 md:px-8">
         <div>
-          <a href="/" className="block w-full">
+          <a href="/" className="block w-full dark:text-white">
             <h1>Stabekk Jazz Club</h1>
           </a>
         </div>
@@ -35,7 +40,7 @@ const Navbar = () => {
           </button>
         </div>
         {/* desktop menu */}
-        <nav className="hidden md:flex ">
+        <nav className="hidden md:flex">
           <ul className="flex gap-8 ">
             <ListItem NavLink="/">Hjem</ListItem>
             <ListItem NavLink="/events">Konserter</ListItem>
@@ -48,7 +53,7 @@ const Navbar = () => {
       <nav
         className={`${
           open ? "fixed" : "hidden"
-        } bg-sky-50 w-full p-4 md:hidden`}
+        } bg-sky-50 dark:bg-sky-900 w-full p-4 md:hidden`}
       >
         <ul>
           <ListItem NavLink="/">Hjem</ListItem>
@@ -74,7 +79,7 @@ const ListItem = ({
       <li>
         <a
           href={NavLink}
-          className="flex py-2 text-base font-medium text-body-color hover:text-dark dark:text-dark-6 dark:hover:text-white"
+          className="flex py-2 text-base font-medium text-body-color hover:text-dark dark:text-white dark:hover:text-gray-400"
         >
           {children}
         </a>
