@@ -68,7 +68,9 @@ function Events() {
       <br />
       <ul className="grid gap-4 md:grid-cols-2">
         {events.map((event) => (
-          <EventCard {...event} />
+          <li key={event.id}>
+            <EventCard {...event} />
+          </li>
         ))}
       </ul>
     </section>
@@ -87,10 +89,7 @@ function EventCard({
   tickets,
 }: EventProps) {
   return (
-    <li
-      key={id}
-      className="rounded-lg overflow-hidden bg-white dark:bg-sky-950"
-    >
+    <div className="rounded-lg overflow-hidden bg-white dark:bg-sky-950">
       <a href={`/events/${id}`}>
         <img
           src={img}
@@ -123,6 +122,6 @@ function EventCard({
           </a>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
