@@ -1,5 +1,5 @@
 import { db } from "../../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -25,6 +25,12 @@ async function getEventById(id: string) {
   } else {
     return null;
   }
+}
+
+export async function generateStaticParams() {
+  const eventsCollection = collection(db, "events");
+  const eventsSnapshot = await getDocs(eventsCollection);
+  return eventsSnapshot.docs.map((doc) => ({ id: doc.id }));
 }
 
 export default async function EventDetails({

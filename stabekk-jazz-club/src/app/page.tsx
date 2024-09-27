@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 export default function Home() {
@@ -9,7 +10,10 @@ export default function Home() {
         <Link href="/events">
           <button className="btn1">Se kommende konserter</button>
         </Link>
-        <Link href="https://secure.officevisual.net/su/35481099518017">
+        <Link
+          href="https://secure.officevisual.net/su/35481099518017"
+          target="blank"
+        >
           <button className="btn2">Motta vårt nyhetsbrev</button>
         </Link>
       </div>

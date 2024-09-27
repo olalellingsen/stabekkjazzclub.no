@@ -9,7 +9,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #00040f;
+    --background: #0a142d;
     --foreground: #ededed;
   }
 }
@@ -39,7 +39,7 @@ h2 {
 }
 
 .btn2 {
-  @apply bg-sky-100 hover:bg-sky-200 rounded-full px-8 py-2 dark:bg-sky-900 dark:text-sky-100 dark:hover:bg-sky-950 text-lg;
+  @apply bg-sky-200 hover:bg-sky-300 rounded-full px-8 py-2 dark:bg-sky-900 dark:text-sky-100 dark:hover:bg-sky-950 text-lg;
 }
 
 a {

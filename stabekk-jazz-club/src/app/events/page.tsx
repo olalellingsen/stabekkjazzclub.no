@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
-import { BeatLoader, ClipLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -55,7 +55,7 @@ function Events() {
   if (loading) {
     return (
       <div className="flex justify-center pt-20">
-        <BeatLoader color="#075985" loading={loading} size={30} />
+        <BeatLoader color="#075985" loading={loading} size={20} />
       </div>
     );
   }
