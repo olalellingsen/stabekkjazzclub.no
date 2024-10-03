@@ -6,37 +6,32 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header
-      className={`${
-        open &&
-        "bg-sky-50 dark:bg-sky-900 dark:md:bg-background md:bg-background"
-      }`}
-    >
-      <div className="flex gap-2 justify-between py-4 px-4 md:px-8">
+    <header className={`bg-sky-900`}>
+      <div className="flex gap-2 justify-between py-3 px-4 md:px-8">
         <div>
-          <a href="/" className="block w-full dark:text-white">
+          <Link href="/" className="block w-full text-white mt-1">
             <h1>Stabekk Jazz Club</h1>
-          </a>
+          </Link>
         </div>
 
-        <div className={`${open ? "p-0" : "py-1"} md:hidden`}>
+        <div className={`${open ? "p-0" : "pt-1"} md:hidden mt-1`}>
           <button onClick={() => setOpen(!open)}>
             <span
               className={`${
                 open &&
                 "rotate-45 translate-x-[1px] translate-y-[1px] transition-all duration-200 w-9"
-              } block h-0.5 w-8 bg-body-color dark:bg-white`}
+              } block h-0.5 w-8 bg-white`}
             ></span>
             <span
               className={`${
                 open && "hidden"
-              } my-2 block h-0.5 w-8 bg-body-color dark:bg-white transition-all duration-200`}
+              } my-2 block h-0.5 w-8 bg-white transition-all duration-200`}
             ></span>
             <span
               className={`${
                 open &&
                 "-rotate-45 translate-x-[1px] -translate-y-[1px] transition-all duration-200 w-9"
-              } block h-0.5 w-8 bg-body-color dark:bg-white`}
+              } block h-0.5 w-8 bg-white`}
             ></span>
           </button>
         </div>
@@ -60,7 +55,7 @@ const Navbar = () => {
       <nav
         className={`${
           open ? "sticky" : "hidden"
-        } bg-sky-50 dark:bg-sky-900 w-full p-4 md:hidden`}
+        } bg-sky-900 w-full p-4 md:hidden`}
       >
         <ul>
           <ListItem NavLink="/" setOpen={setOpen}>
@@ -99,7 +94,7 @@ const ListItem = ({
       <Link
         href={NavLink}
         onClick={handleClick} // Close the mobile menu when a link is clicked
-        className="flex py-2 text-lg font-medium text-body-color hover:text-dark dark:text-white dark:hover:text-gray-400"
+        className="flex py-2 text-lg font-medium text-white hover:text-gray-300"
       >
         {children}
       </Link>
