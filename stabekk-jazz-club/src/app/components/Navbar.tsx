@@ -47,13 +47,16 @@ const Navbar = () => {
             <ListItem NavLink="/about" setOpen={setOpen}>
               Om klubben
             </ListItem>
+            <ListItem NavLink="/venues" setOpen={setOpen}>
+              Våre lokaler
+            </ListItem>
           </ul>
         </nav>
       </div>
 
       {/* mobile menu */}
       <nav
-        className={`${
+        className={`z-10 ${
           open ? "sticky" : "hidden"
         } bg-sky-900 w-full p-4 md:hidden`}
       >
@@ -66,6 +69,9 @@ const Navbar = () => {
           </ListItem>
           <ListItem NavLink="/about" setOpen={setOpen}>
             Om klubben
+          </ListItem>
+          <ListItem NavLink="/venues" setOpen={setOpen}>
+            Våre lokaler
           </ListItem>
         </ul>
       </nav>

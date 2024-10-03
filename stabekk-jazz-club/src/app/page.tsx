@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <img
-        src="/stabekkjazz.jpg"
+        src="/home.jpg"
         alt="Stabekk Jazz Club"
         className="absolute top-0 left-0 h-full object-cover z-[-2]"
       />
@@ -21,14 +21,14 @@ export default function Home() {
 
       <div className="absolute right-0 top-1/4 sm:top-1/3 w-full">
         <h1
-          className={`text-center text-white py-8 font-bold sm:text-4xl transform transition-opacity duration-1000 delay-200 ${
+          className={`text-center text-white px-4 py-8 font-bold sm:text-4xl transform transition-opacity duration-1000 delay-200 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
           Velkommen til Stabekk Jazz Club
         </h1>
         <div
-          className={`flex flex-wrap justify-center gap-4  transform transition-opacity duration-1000 delay-500 ${
+          className={`flex flex-wrap justify-center gap-4 transform transition-opacity duration-1000 delay-500 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
