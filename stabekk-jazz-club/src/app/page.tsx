@@ -20,13 +20,14 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]" />
 
       <div className="absolute right-0 top-1/4 sm:top-1/3 w-full">
-        <h1
-          className={`text-center text-white px-4 py-8 font-bold sm:text-4xl transform transition-opacity duration-1000 delay-200 ${
+        <div
+          className={` flex gap-2 flex-wrap justify-center text-white px-4 py-8 font-bold sm:text-4xl transform transition-opacity duration-1000 delay-200 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          Velkommen til Stabekk Jazz Club
-        </h1>
+          <h1>Velkommen til</h1>
+          <h1>Stabekk Jazz Club</h1>
+        </div>
         <div
           className={`flex flex-wrap justify-center gap-4 transform transition-opacity duration-1000 delay-500 ${
             isVisible ? "opacity-100" : "opacity-0"
