@@ -50,9 +50,9 @@ const Navbar = () => {
             <ListItem NavLink="/venues" setOpen={setOpen}>
               Våre lokaler
             </ListItem>
-            <ListItem NavLink="/contact" setOpen={setOpen}>
+            {/* <ListItem NavLink="/contact" setOpen={setOpen}>
               Kontakt oss
-            </ListItem>
+            </ListItem> */}
           </ul>
         </nav>
       </div>
@@ -76,9 +76,9 @@ const Navbar = () => {
           <ListItem NavLink="/venues" setOpen={setOpen}>
             Våre lokaler
           </ListItem>
-          <ListItem NavLink="/contact" setOpen={setOpen}>
+          {/* <ListItem NavLink="/contact" setOpen={setOpen}>
             Kontakt oss
-          </ListItem>
+          </ListItem> */}
         </ul>
       </nav>
     </header>
