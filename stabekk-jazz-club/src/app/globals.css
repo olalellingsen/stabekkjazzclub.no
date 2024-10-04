@@ -38,6 +38,10 @@ h3 {
   @apply text-xl;
 }
 
+button {
+  @apply m-1 w-max;
+}
+
 .btn1 {
   @apply bg-sky-900 rounded-full text-white px-8 py-2 hover:bg-sky-950 dark:bg-sky-100 dark:text-sky-900 dark:hover:bg-sky-200 text-lg;
 }
@@ -48,4 +52,9 @@ h3 {
 
 a {
   @apply text-sky-900 dark:text-sky-300 hover:underline w-max;
+}
+
+input,
+textarea {
+  @apply my-1 p-2 rounded-md outline-sky-800;
 }

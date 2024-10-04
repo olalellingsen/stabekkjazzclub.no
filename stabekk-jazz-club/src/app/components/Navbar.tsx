@@ -7,14 +7,14 @@ const Navbar = () => {
 
   return (
     <header className={`bg-sky-900`}>
-      <div className="flex gap-2 justify-between py-3 px-4 md:px-8">
+      <div className="flex gap-2 justify-between py-3 px-4 lg:px-8">
         <div>
           <Link href="/" className="block w-full text-white mt-1">
             <h1>Stabekk Jazz Club</h1>
           </Link>
         </div>
 
-        <div className={`${open ? "p-0" : "pt-1"} md:hidden mt-1`}>
+        <div className={`${open ? "p-0" : "pt-1"} lg:hidden mt-1`}>
           <button onClick={() => setOpen(!open)}>
             <span
               className={`${
@@ -36,7 +36,7 @@ const Navbar = () => {
           </button>
         </div>
         {/* desktop menu */}
-        <nav className="hidden md:flex">
+        <nav className="hidden lg:flex">
           <ul className="flex gap-8">
             <ListItem NavLink="/" setOpen={setOpen}>
               Hjem
@@ -50,6 +50,9 @@ const Navbar = () => {
             <ListItem NavLink="/venues" setOpen={setOpen}>
               Våre lokaler
             </ListItem>
+            <ListItem NavLink="/contact" setOpen={setOpen}>
+              Kontakt oss
+            </ListItem>
           </ul>
         </nav>
       </div>
@@ -58,7 +61,7 @@ const Navbar = () => {
       <nav
         className={`z-10 ${
           open ? "sticky" : "hidden"
-        } bg-sky-900 w-full p-4 md:hidden`}
+        } bg-sky-900 w-full p-4 lg:hidden`}
       >
         <ul>
           <ListItem NavLink="/" setOpen={setOpen}>
@@ -72,6 +75,9 @@ const Navbar = () => {
           </ListItem>
           <ListItem NavLink="/venues" setOpen={setOpen}>
             Våre lokaler
+          </ListItem>
+          <ListItem NavLink="/contact" setOpen={setOpen}>
+            Kontakt oss
           </ListItem>
         </ul>
       </nav>
