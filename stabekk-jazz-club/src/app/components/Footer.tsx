@@ -6,8 +6,8 @@ function Footer() {
     <footer className="bg-sky-900 text-white p-8 gap-4 flex flex-wrap justify-between">
       <div className="grid gap-1">
         <p>
-          <Link className="text-white" href="mailto:stabekkjazzclub@gmail.com">
-            stabekkjazzclub@gmail.com
+          <Link className="text-white" href="mailto:post@stabekkjazzclub.no">
+            post@stabekkjazzclub.no
           </Link>
         </p>
         <p>
