@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-sky-900 text-white p-8 gap-4 flex flex-wrap justify-between">
+    <footer className="bg-sky-900 dark:bg-sky-950 text-white p-8 gap-4 flex flex-wrap justify-between">
       <div className="grid gap-1">
         <p>
           <Link className="text-white" href="mailto:post@stabekkjazzclub.no">

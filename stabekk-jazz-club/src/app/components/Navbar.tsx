@@ -6,7 +6,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={`bg-sky-900`}>
+    <header className={`bg-sky-900 dark:bg-sky-950`}>
       <div className="flex gap-2 justify-between py-3 px-4 lg:px-8">
         <div>
           <Link href="/" className="block w-full text-white mt-1">
