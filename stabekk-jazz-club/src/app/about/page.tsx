@@ -1,11 +1,12 @@
-"use client";
 import React from "react";
+import Image from "next/image";
+import aboutImg from "/public/about.jpg";
 
 function About() {
   return (
-    <section className="grid gap-4">
+    <section className="grid gap-4 relative">
       <h1 className="text-center">Om oss</h1>
-      <img src="/about.jpg" alt="Om oss" />
+      <Image src={aboutImg} alt="Om oss" />
       <p>
         Stabekk Jazz Club som ble stiftet i slutten av 2018 drives i kommunens
         ærverdige lokaler i kinosalen i Kulturhuset Stabekk Kino. Stabekk Jazz

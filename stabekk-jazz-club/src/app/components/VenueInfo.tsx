@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 interface VenueInfoProps {
   name: string;
@@ -27,8 +28,20 @@ function VenueInfo({
       </Link>
 
       <div className="grid sm:grid-cols-2 gap-2 *:aspect-video *:object-cover">
-        <img src={img1} alt={"Image of " + name + "1"} />
-        {img2 && <img src={img2} alt={"Image of " + name + "2"} />}
+        <Image
+          src={img1}
+          alt={"Image of " + name + "1"}
+          height={400}
+          width={600}
+        />
+        {img2 && (
+          <Image
+            src={img2}
+            alt={"Image of " + name + "2"}
+            height={400}
+            width={600}
+          />
+        )}
       </div>
     </div>
   );

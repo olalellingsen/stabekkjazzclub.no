@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,10 +12,11 @@ export default function Home() {
 
   return (
     <>
-      <img
+      <Image
         src="/home.jpg"
         alt="Stabekk Jazz Club"
-        className="absolute top-0 left-0 h-full object-cover z-[-2]"
+        className="object-cover z-[-2]"
+        fill
       />
 
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]" />

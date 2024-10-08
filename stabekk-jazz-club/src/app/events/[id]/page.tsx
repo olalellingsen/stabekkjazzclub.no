@@ -4,6 +4,7 @@ import { Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
+import Image from "next/image";
 
 interface EventProps {
   id: string;
@@ -52,10 +53,12 @@ export default async function EventDetails({
       >
         Tilbake til konserter
       </Link>
-      <img
-        src={event.img}
+      <Image
+        src={event.img || "/concert.jpg"}
         alt={event.title}
         className="aspect-video object-cover"
+        height={400}
+        width={1000}
       />
       <div className="grid md:flex justify-between">
         <div className="grid gap-2 py-2 md:py-4">

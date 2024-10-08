@@ -5,6 +5,7 @@ import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { BeatLoader } from "react-spinners";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 interface EventProps {
   id: string;
@@ -93,10 +94,12 @@ function EventCard({
   return (
     <div className="rounded-lg overflow-hidden bg-white dark:bg-sky-950">
       <Link href={`/events/${id}`}>
-        <img
-          src={img}
+        <Image
+          src={img || "/path/to/default/image.jpg"}
           alt={title}
           className="aspect-video object-cover hover:scale-[102%] transition-transform duration-200"
+          height={400}
+          width={600}
         />
       </Link>
 

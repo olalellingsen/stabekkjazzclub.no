@@ -14,7 +14,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className={`${open ? "p-0" : "pt-1"} lg:hidden mt-1`}>
+        <div className={`lg:hidden mt-1`}>
           <button onClick={() => setOpen(!open)}>
             <span
               className={`${
