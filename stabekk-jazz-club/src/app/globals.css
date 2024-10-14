@@ -47,7 +47,7 @@ button {
 }
 
 .btn2 {
-  @apply bg-sky-200 hover:bg-sky-300 rounded-full px-8 py-2 dark:bg-sky-800 dark:text-sky-100 dark:hover:bg-sky-900 text-lg;
+  @apply bg-sky-200 hover:bg-sky-300 rounded-full px-8 py-2 dark:bg-sky-900 dark:text-sky-100 dark:hover:bg-sky-800 text-lg;
 }
 
 a {

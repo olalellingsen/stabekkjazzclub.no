@@ -16,7 +16,7 @@ function About() {
         og arrangørstab på 2-3 frivillige.
       </p>
       <strong>
-        Jazzklubben øsker å stimulere til øket deltagelse fra den yngre garde,
+        Jazzklubben ønsker å stimulere til økt deltagelse fra den yngre garde,
         både som utøvere og publikum.
       </strong>
       <p>
