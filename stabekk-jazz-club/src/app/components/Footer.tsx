@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 function Footer() {
   return (
@@ -23,10 +24,12 @@ function Footer() {
           href="https://www.facebook.com/stabekkjazzclub/?locale=nb_NO"
           target="_blank"
         >
-          <img
-            className="h-16 hover:scale-105 transition-transform duration-200"
-            src="https://img.icons8.com/ios-filled/500/FFFFFF/facebook-new.png"
-            alt="facebook-new"
+          <Image
+            className="h-16 w-16 hover:scale-105 transition-transform duration-200"
+            src="/facebook.png"
+            alt="facebook"
+            width={60}
+            height={60}
           />
         </Link>
       </div>
