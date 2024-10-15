@@ -6,7 +6,7 @@ function About() {
   return (
     <section className="grid gap-4 relative">
       <h1 className="text-center">Om oss</h1>
-      <Image src={aboutImg} alt="Om oss" />
+      <Image src={aboutImg} alt="Om oss" placeholder="blur" />
       <p>
         Stabekk Jazz Club som ble stiftet i slutten av 2018 drives i kommunens
         ærverdige lokaler i kinosalen i Kulturhuset Stabekk Kino. Stabekk Jazz

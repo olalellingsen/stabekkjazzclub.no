@@ -54,26 +54,33 @@ export default async function EventDetails({
         Tilbake til konserter
       </Link>
       <Image
-        src={event.img || "/concert.jpg"}
+        src={event.img || "/default-image.jpg"}
         alt={event.title}
         className="aspect-video object-cover"
         height={400}
         width={1000}
+        placeholder="empty"
       />
       <div className="grid md:flex justify-between">
         <div className="grid gap-2 py-2 md:py-4">
           <h1>{event.title}</h1>
           <h1>
-            {event.date.toDate().toLocaleDateString("nb-NO", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}{" "}
+            {new Date(event.date.toDate().toISOString()).toLocaleDateString(
+              "nb-NO",
+              {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              }
+            )}{" "}
             kl{" "}
-            {event.date.toDate().toLocaleTimeString("nb-NO", {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+            {new Date(event.date.toDate().toISOString()).toLocaleTimeString(
+              "nb-NO",
+              {
+                hour: "2-digit",
+                minute: "2-digit",
+              }
+            )}
           </h1>
 
           <Link

@@ -1,11 +1,8 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { db } from "../../firebase";
+import { db } from "@/firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
-import { BeatLoader } from "react-spinners";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import Image from "next/image";
+import React from "react";
 
 interface EventProps {
   id: string;
@@ -18,52 +15,23 @@ interface EventProps {
   img?: string;
 }
 
-function Events() {
-  const [events, setEvents] = useState<EventProps[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+// Async function to fetch events from Firestore
+async function getEvents() {
+  const querySnapshot = await getDocs(collection(db, "events"));
+  const events = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as EventProps[];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch data from the "events" collection
-        const querySnapshot = await getDocs(collection(db, "events"));
+  // Filter and sort events
+  return events
+    .filter((event) => event.date.toDate() > new Date())
+    .sort((a, b) => a.date.toDate().getTime() - b.date.toDate().getTime());
+}
 
-        // Map through the data and ensure it conforms to EventProps
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id, // Add the document ID
-          ...doc.data(),
-        })) as EventProps[];
-
-        setEvents(
-          data
-            .filter((event) => event.date.toDate() > new Date()) // Filter out past events
-            .sort(
-              (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
-            ) // Sort by date
-        );
-      } catch (error) {
-        console.error("Error fetching events: ", error);
-        setError("Failed to fetch events.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center pt-20">
-        <BeatLoader color="#075985" loading={loading} size={20} />
-      </div>
-    );
-  }
-
-  if (error) {
-    notFound(); // Show a 404 page if the event is not found
-  }
+// Main component (server component)
+export default async function Events() {
+  const events = await getEvents();
 
   return (
     <section>
@@ -80,8 +48,7 @@ function Events() {
   );
 }
 
-export default Events;
-
+// Component to display individual event cards
 function EventCard({
   id,
   img,
@@ -95,11 +62,12 @@ function EventCard({
     <div className="rounded-lg overflow-hidden bg-white dark:bg-sky-950">
       <Link href={`/events/${id}`}>
         <Image
-          src={img || "/path/to/default/image.jpg"}
+          src={img || "/default-image.jpg"}
           alt={title}
           className="aspect-video object-cover hover:scale-[102%] transition-transform duration-200"
           height={400}
           width={800}
+          placeholder="empty"
         />
       </Link>
 
