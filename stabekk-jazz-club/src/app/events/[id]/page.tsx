@@ -1,10 +1,13 @@
+"use client";
+
 import { db } from "../../../firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { BeatLoader } from "react-spinners";
 
 interface EventProps {
   id: string;
@@ -17,32 +20,44 @@ interface EventProps {
   img?: string;
 }
 
-async function getEventById(id: string) {
-  const docRef = doc(db, "events", id);
-  const docSnap = await getDoc(docRef);
+export default function EventDetails({ params }: { params: { id: string } }) {
+  const [event, setEvent] = useState<EventProps | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const router = useRouter(); // To redirect for 404
 
-  if (docSnap.exists()) {
-    return { id: docSnap.id, ...docSnap.data() } as EventProps;
-  } else {
-    return null;
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const docRef = doc(db, "events", params.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setEvent({ id: docSnap.id, ...docSnap.data() } as EventProps);
+        } else {
+          router.push("/404"); // Redirect to 404 if event not found
+        }
+      } catch (error) {
+        console.error("Error fetching event: ", error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvent();
+  }, [params.id, router]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-20">
+        <BeatLoader color="#0c4a6e" loading={loading} size={20} />
+      </div>
+    );
   }
-}
 
-export async function generateStaticParams() {
-  const eventsCollection = collection(db, "events");
-  const eventsSnapshot = await getDocs(eventsCollection);
-  return eventsSnapshot.docs.map((doc) => ({ id: doc.id }));
-}
-
-export default async function EventDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const event = await getEventById(params.id);
-
-  if (!event) {
-    notFound(); // Show a 404 page if the event is not found
+  if (error || !event) {
+    return <p>Error loading event...</p>;
   }
 
   return (
@@ -65,22 +80,16 @@ export default async function EventDetails({
         <div className="grid gap-2 py-2 md:py-4">
           <h1>{event.title}</h1>
           <h1>
-            {new Date(event.date.toDate().toISOString()).toLocaleDateString(
-              "nb-NO",
-              {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              }
-            )}{" "}
+            {event.date.toDate().toLocaleDateString("nb-NO", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}{" "}
             kl{" "}
-            {new Date(event.date.toDate().toISOString()).toLocaleTimeString(
-              "nb-NO",
-              {
-                hour: "2-digit",
-                minute: "2-digit",
-              }
-            )}
+            {event.date.toDate().toLocaleTimeString("nb-NO", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </h1>
 
           <Link

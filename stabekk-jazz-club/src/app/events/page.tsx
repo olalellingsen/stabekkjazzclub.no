@@ -1,8 +1,11 @@
+"use client"; 
+
 import { db } from "@/firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BeatLoader, ClipLoader } from "react-spinners";
 
 interface EventProps {
   id: string;
@@ -15,23 +18,52 @@ interface EventProps {
   img?: string;
 }
 
-// Async function to fetch events from Firestore
-async function getEvents() {
-  const querySnapshot = await getDocs(collection(db, "events"));
-  const events = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as EventProps[];
+// Main component (client-side)
+export default function Events() {
+  const [events, setEvents] = useState<EventProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Filter and sort events
-  return events
-    .filter((event) => event.date.toDate() > new Date())
-    .sort((a, b) => a.date.toDate().getTime() - b.date.toDate().getTime());
-}
+  // Fetch events on client side when component is mounted
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        const eventsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as EventProps[];
 
-// Main component (server component)
-export default async function Events() {
-  const events = await getEvents();
+        // Filter and sort events by date
+        const upcomingEvents = eventsData
+          .filter((event) => event.date.toDate() > new Date())
+          .sort(
+            (a, b) => a.date.toDate().getTime() - b.date.toDate().getTime()
+          );
+
+        setEvents(upcomingEvents);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+        setError("Failed to load events");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-20">
+        <BeatLoader color="#0c4a6e" loading={loading} size={20} />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p>{error}</p>; // Error state
+  }
 
   return (
     <section>
