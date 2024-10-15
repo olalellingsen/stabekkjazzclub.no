@@ -99,7 +99,7 @@ function EventCard({
           alt={title}
           className="aspect-video object-cover hover:scale-[102%] transition-transform duration-200"
           height={400}
-          width={600}
+          width={800}
         />
       </Link>
 

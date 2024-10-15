@@ -59,9 +59,9 @@ const Navbar = () => {
 
       {/* mobile menu */}
       <nav
-        className={`z-10 ${
+        className={`z-10 bg-sky-900 dark:bg-sky-950 ${
           open ? "sticky" : "hidden"
-        } bg-sky-900 w-full p-4 lg:hidden`}
+        } w-full p-4 lg:hidden`}
       >
         <ul>
           <ListItem NavLink="/" setOpen={setOpen}>

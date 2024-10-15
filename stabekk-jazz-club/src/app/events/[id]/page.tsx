@@ -48,7 +48,7 @@ export default async function EventDetails({
   return (
     <section className="max-w-screen-lg">
       <Link
-        className="text-body-color underline hover:no-underline py-2 block"
+        className="text-gray-600 dark:text-gray-400 underline hover:no-underline py-2 block"
         href="/events"
       >
         Tilbake til konserter
@@ -69,7 +69,11 @@ export default async function EventDetails({
               month: "2-digit",
               year: "numeric",
             })}{" "}
-            kl {event.date.toDate().toLocaleTimeString().slice(0, 5)}
+            kl{" "}
+            {event.date.toDate().toLocaleTimeString("nb-NO", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </h1>
 
           <Link
