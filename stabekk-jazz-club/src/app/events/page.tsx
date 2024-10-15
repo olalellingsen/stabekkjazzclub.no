@@ -1,11 +1,11 @@
-"use client"; 
+"use client";
 
 import { db } from "@/firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { BeatLoader, ClipLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 interface EventProps {
   id: string;
@@ -18,7 +18,6 @@ interface EventProps {
   img?: string;
 }
 
-// Main component (client-side)
 export default function Events() {
   const [events, setEvents] = useState<EventProps[]>([]);
   const [loading, setLoading] = useState(true);
