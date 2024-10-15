@@ -74,12 +74,16 @@ function EventCard({
       <div className="p-4 grid gap-2">
         <h2>{title}</h2>
         <h2>
-          {date.toDate().toLocaleDateString("nb-NO", {
+          {new Date(date.toDate().toISOString()).toLocaleDateString("nb-NO", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
           })}{" "}
-          kl {date.toDate().toLocaleTimeString().slice(0, 5)}
+          kl{" "}
+          {new Date(date.toDate().toISOString()).toLocaleTimeString("nb-NO", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
         </h2>
         <p>
           <Link href={venueLink} target="_blank">
