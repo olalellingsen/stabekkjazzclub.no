@@ -60,6 +60,14 @@ export default function EventDetails({ params }: { params: { id: string } }) {
     return <p>Error loading event...</p>;
   }
 
+  function formatText(text: string) {
+    return text.split("\n").map((line, index) => (
+      <p className="mb-4" key={index} style={{ whiteSpace: "pre-line" }}>
+        {line}
+      </p>
+    ));
+  }
+
   return (
     <section className="max-w-screen-lg">
       <Link
@@ -109,7 +117,7 @@ export default function EventDetails({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <p className="py-2">{event.description}</p>
+      <p className="py-2">{formatText(event.description)}</p>
     </section>
   );
 }

@@ -56,5 +56,5 @@ a {
 
 input,
 textarea {
-  @apply my-1 p-2 rounded-md outline-sky-800;
+  @apply my-1 p-2 rounded-md outline-sky-800 text-black bg-white dark:bg-background dark:text-white;
 }
