@@ -105,7 +105,7 @@ const ListItem = ({
     <li>
       <Link
         href={NavLink}
-        onClick={handleClick} // Close the mobile menu when a link is clicked
+        onClick={handleClick}
         className="flex py-2 text-lg font-medium text-white hover:text-gray-300"
       >
         {children}

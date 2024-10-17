@@ -48,7 +48,7 @@ export function EventCard({
           <Link href={tickets} target="blank">
             <button className="btn1">Billetter</button>
           </Link>
-          <Link href={`/events/${id}`} className="pt-5">
+          <Link href={`/events/${id}`} className="pt-5 hover:underline">
             Les mer
           </Link>
         </div>
