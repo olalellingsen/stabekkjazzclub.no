@@ -9,6 +9,7 @@ import {
   doc,
   Timestamp,
 } from "firebase/firestore";
+import ConfirmationModal from "./ConfirmationModal";
 
 export interface EventProps {
   id: string;
@@ -28,6 +29,8 @@ export default function AdminEvents() {
   const [error, setError] = useState<string | null>(null);
   const [editingEvent, setEditingEvent] = useState<EventProps | null>(null);
   const [addNewEvent, setAddNewEvent] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState<string | null>(null);
 
   // Fetch events from Firestore
   useEffect(() => {
@@ -81,9 +84,15 @@ export default function AdminEvents() {
     try {
       await deleteDoc(doc(db, "events", id));
       setEvents(events.filter((event) => event.id !== id));
+      setModalOpen(false);
     } catch (err) {
       console.error("Error deleting event:", err);
     }
+  };
+
+  const confirmDeleteEvent = (id: string) => {
+    setEventToDelete(id);
+    setModalOpen(true);
   };
 
   // Handle event edit
@@ -97,82 +106,86 @@ export default function AdminEvents() {
 
   return (
     <div>
+      <button className="btn1" onClick={() => setAddNewEvent(true)}>
+        Legg til konsert
+      </button>
       <section>
-        <button className="btn2" onClick={() => setAddNewEvent(true)}>
-          Legg til konsert
-        </button>
-
-        <section>
-          {editingEvent && (
-            <EditEventForm
-              event={editingEvent}
-              onSave={(updatedEvent) =>
-                handleUpdateEvent(updatedEvent as EventProps)
-              }
-              onCancel={() => setEditingEvent(null)}
+        {editingEvent && (
+          <EditEventForm
+            event={editingEvent}
+            onSave={(updatedEvent) =>
+              handleUpdateEvent(updatedEvent as EventProps)
+            }
+            onCancel={() => setEditingEvent(null)}
+          />
+        )}
+        {addNewEvent && (
+          <EditEventForm
+            event={{
+              title: "",
+              date: Timestamp.now(),
+              description: "",
+              tickets: "",
+              venue: "",
+              venueLink: "",
+              img: "",
+            }}
+            onSave={(newEvent) => handleAddEvent(newEvent)}
+            onCancel={() => setAddNewEvent(false)}
+          />
+        )}
+      </section>
+      <ConfirmationModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={() => handleDeleteEvent(eventToDelete!)}
+      />
+      <br />
+      <h2>Kommende konserter</h2>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+        {events.map((event) => (
+          <div
+            key={event.id}
+            className="m-2 rounded-lg overflow-hidden bg-white dark:bg-sky-950"
+          >
+            <img
+              src={event.img}
+              alt={event.title}
+              className="aspect-video object-cover"
             />
-          )}
-          {addNewEvent && (
-            <EditEventForm
-              event={{
-                title: "",
-                date: Timestamp.now(),
-                description: "",
-                tickets: "",
-                venue: "",
-                venueLink: "",
-                img: "",
-              }}
-              onSave={(newEvent) => handleAddEvent(newEvent)}
-              onCancel={() => setAddNewEvent(false)}
-            />
-          )}
-        </section>
-        <br />
-        <h2>Kommende konserter</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="m-2 rounded-lg overflow-hidden bg-white dark:bg-sky-950"
-            >
-              <img
-                src={event.img}
-                alt={event.title}
-                className="aspect-video object-cover"
-              />
-              <div className="p-2">
-                <h3>{event.title}</h3>
-                <p>
-                  {new Date(
-                    event.date.toDate().toISOString()
-                  ).toLocaleDateString("nb-NO", {
+            <div className="p-2">
+              <h3>{event.title}</h3>
+              <p>
+                {new Date(event.date.toDate().toISOString()).toLocaleDateString(
+                  "nb-NO",
+                  {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",
-                  })}{" "}
-                  kl{" "}
-                  {new Date(
-                    event.date.toDate().toISOString()
-                  ).toLocaleTimeString("nb-NO", {
+                  }
+                )}{" "}
+                kl{" "}
+                {new Date(event.date.toDate().toISOString()).toLocaleTimeString(
+                  "nb-NO",
+                  {
                     hour: "2-digit",
                     minute: "2-digit",
-                  })}
-                </p>
-                <button className="btn1" onClick={() => handleEditClick(event)}>
-                  Rediger
-                </button>
-                <button
-                  className="btn2"
-                  onClick={() => handleDeleteEvent(event.id)}
-                >
-                  Slett
-                </button>
-              </div>
+                  }
+                )}
+              </p>
+              <button className="btn1" onClick={() => handleEditClick(event)}>
+                Rediger
+              </button>
+              <button
+                className="btn2"
+                onClick={() => confirmDeleteEvent(event.id)}
+              >
+                Slett
+              </button>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -192,8 +205,8 @@ function EditEventForm({
     date: new Date(
       event.date instanceof Timestamp ? event.date.toDate() : event.date
     )
-      .toISOString()
-      .slice(0, 16), // convert to ISO string for <input>
+      .toLocaleString("sv-SE", { timeZone: "Europe/Oslo" })
+      .replace(" ", "T"), // Convert to local time and format for <input>
   });
 
   const handleChange = (
@@ -227,6 +240,7 @@ function EditEventForm({
         name="date"
         value={formData.date}
         onChange={handleChange}
+        className=""
       />
       <input
         type="text"

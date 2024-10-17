@@ -59,9 +59,9 @@ const AdminPage = () => {
   if (user) {
     return (
       <div>
-        <div className="bg-gray-4 dark:bg-sky-950 rounded-xl flex flex-wrap justify-between sm:w-max">
-          <p className="p-4">{user.email}</p>
-          <button className="btn1" onClick={handleLogout}>
+        <div className="flex flex-wrap justify-between bg-white dark:bg-sky-950 p-2 rounded-3xl">
+          <p className="px-2 py-4">Logget inn som {user.email}</p>
+          <button className="btn2" onClick={handleLogout}>
             Logg ut
           </button>
         </div>
@@ -76,7 +76,6 @@ const AdminPage = () => {
   // Display login form if the user is not logged in
   return (
     <div className="grid gap-2 max-w-sm bg-gray-4 dark:bg-sky-950 p-4 rounded-lg">
-      <h1>Logg inn</h1>
       <input
         type="email"
         value={email}
@@ -91,7 +90,7 @@ const AdminPage = () => {
       />
 
       <button className="btn1" onClick={handleLogin}>
-        Login
+        Logg inn
       </button>
       {error && <p>{error}</p>}
     </div>
