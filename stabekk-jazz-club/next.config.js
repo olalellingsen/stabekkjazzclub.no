@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.baerumkulturhus.no",
       },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
     ],
   },
 };
