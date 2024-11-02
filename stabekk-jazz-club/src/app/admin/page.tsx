@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-import AdminEvents from "../components/AdminEvents";
+import AdminEvents from "./AdminEvents";
 
 // Component for editing events
 const AdminPage = () => {
@@ -22,7 +22,6 @@ const AdminPage = () => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser); // User is logged in
-        console.log(currentUser);
       } else {
         setUser(null); // User is logged out
       }

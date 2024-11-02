@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "@/firebase";
+import Image from "next/image";
 import {
   collection,
   getDocs,
@@ -9,20 +10,10 @@ import {
   doc,
   Timestamp,
 } from "firebase/firestore";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
+import EditEventForm from "./EditEventForm";
+import { EventProps } from "@/types";
 
-export interface EventProps {
-  id: string;
-  title: string;
-  date: Timestamp;
-  description: string;
-  tickets: string;
-  venue: string;
-  venueLink: string;
-  img?: string;
-}
-
-// Component for the admin page
 export default function AdminEvents() {
   const [events, setEvents] = useState<EventProps[]>([]);
   const [loading, setLoading] = useState(true);
@@ -97,8 +88,9 @@ export default function AdminEvents() {
 
   // Handle event edit
   const handleEditClick = (event: EventProps) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingEvent(event);
-    setAddNewEvent(false); // Make sure we are not in "Add New" mode when editing
+    setAddNewEvent(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -146,12 +138,14 @@ export default function AdminEvents() {
         {events.map((event) => (
           <div
             key={event.id}
-            className="m-2 rounded-lg overflow-hidden bg-white dark:bg-sky-950"
+            className="m-2 rounded-lg overflow-hidden bg-white dark:bg-sky-950 flex flex-col justify-between"
           >
-            <img
-              src={event.img}
+            <Image
+              src={event.img || "/default-image.jpg"}
               alt={event.title}
               className="aspect-video object-cover"
+              width={500}
+              height={225}
             />
             <div className="p-2">
               <h3>{event.title}</h3>
@@ -187,105 +181,5 @@ export default function AdminEvents() {
         ))}
       </div>
     </div>
-  );
-}
-
-// Edit Event Form Component
-function EditEventForm({
-  event,
-  onSave,
-  onCancel,
-}: {
-  event: EventProps | Omit<EventProps, "id">;
-  onSave: (updatedEvent: EventProps | Omit<EventProps, "id">) => void;
-  onCancel: () => void;
-}) {
-  const [formData, setFormData] = useState({
-    ...event,
-    date: new Date(
-      event.date instanceof Timestamp ? event.date.toDate() : event.date
-    )
-      .toLocaleString("sv-SE", { timeZone: "Europe/Oslo" })
-      .replace(" ", "T"), // Convert to local time and format for <input>
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = () => {
-    // Convert the date string back to a Firestore Timestamp before saving
-    const updatedEvent = {
-      ...formData,
-      date: Timestamp.fromDate(new Date(formData.date)), // convert the string date back to Timestamp
-    };
-    onSave(updatedEvent);
-    onCancel();
-  };
-
-  return (
-    <section className="grid p-4 my-4 bg-gray-4 dark:bg-sky-950 rounded-lg">
-      <input
-        type="text"
-        name="title"
-        value={formData.title}
-        onChange={handleChange}
-        placeholder="Tittel"
-      />
-      <input
-        type="datetime-local"
-        name="date"
-        value={formData.date}
-        onChange={handleChange}
-        className=""
-      />
-      <input
-        type="text"
-        name="venue"
-        value={formData.venue}
-        onChange={handleChange}
-        placeholder="Konsertsted/Scene"
-      />
-      <input
-        type="text"
-        name="venueLink"
-        value={formData.venueLink}
-        onChange={handleChange}
-        placeholder="Google Maps link til Konsertsted/Scene"
-      />
-      <input
-        type="text"
-        name="tickets"
-        value={formData.tickets}
-        onChange={handleChange}
-        placeholder="Link til billetter"
-      />
-      <input
-        type="text"
-        name="img"
-        value={formData.img}
-        onChange={handleChange}
-        placeholder="Link til bilde"
-      />
-      <textarea
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        placeholder="Beskrivelse"
-        className="h-32"
-      />
-
-      <div className="flex flex-wrap">
-        <button className="btn1" onClick={handleSubmit}>
-          Lagre
-        </button>
-        <button className="btn2" onClick={onCancel}>
-          Avbryt
-        </button>
-      </div>
-    </section>
   );
 }

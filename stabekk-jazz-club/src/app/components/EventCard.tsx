@@ -45,9 +45,11 @@ export function EventCard({
           </Link>
         </p>
         <div className="flex justify-between pt-2">
-          <Link href={tickets} target="blank">
-            <button className="btn1">Billetter</button>
-          </Link>
+          {tickets != "" && (
+            <Link href={tickets} target="blank">
+              <button className="btn1">Billetter</button>
+            </Link>
+          )}
           <Link href={`/events/${id}`} className="pt-5 hover:underline">
             Les mer
           </Link>
