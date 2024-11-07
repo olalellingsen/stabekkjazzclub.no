@@ -1,7 +1,7 @@
 "use client"; // Making sure it's a client-side component
 
 import { useState, useEffect } from "react";
-import { auth, db } from "@/firebase"; // Import Firebase instance
+import { auth } from "@/firebase"; // Import Firebase instance
 import {
   signInWithEmailAndPassword,
   signOut,

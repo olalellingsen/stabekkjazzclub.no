@@ -29,6 +29,29 @@ export default function EditEventForm({
 
   const [newImage, setNewImage] = useState<File | null>(null);
 
+  const venueOptions = [
+    {
+      name: "Kulturhuset Stabekk Kino",
+      link: "https://maps.app.goo.gl/D6fTyUHLwggChNe2A",
+    },
+    {
+      name: "Varmesentralen",
+      link: "https://maps.app.goo.gl/HKZmMSbnuX8zxrBY7",
+    },
+    { name: "Flytårnet", link: "https://maps.app.goo.gl/655RaJP9jtd8zVs48" },
+  ];
+
+  const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedVenue = venueOptions.find(
+      (venue) => venue.name === e.target.value
+    );
+    setFormData((prev) => ({
+      ...prev,
+      venue: selectedVenue?.name || "",
+      venueLink: selectedVenue?.link || "",
+    }));
+  };
+
   // Handle image upload
   async function handleImageUpload(file: File) {
     if (!file) return formData.img || ""; // Use existing image if no file selected
@@ -82,20 +105,18 @@ export default function EditEventForm({
         value={formData.date}
         onChange={handleChange}
       />
-      <p>Konsertsted/Scene</p>
-      <input
-        type="text"
-        name="venue"
-        value={formData.venue}
-        onChange={handleChange}
-      />
-      <p>Google Maps-link til Konsertsted/Scene</p>
-      <input
-        type="text"
-        name="venueLink"
-        value={formData.venueLink}
-        onChange={handleChange}
-      />
+      <p>Konsertsted</p>
+      <select name="venue" value={formData.venue} onChange={handleVenueChange}>
+        <option value="" disabled>
+          Velg et konsertsted
+        </option>
+        {venueOptions.map((venue) => (
+          <option key={venue.name} value={venue.name}>
+            {venue.name}
+          </option>
+        ))}
+      </select>
+
       <p>Link til billetter</p>
       <input
         type="text"
@@ -111,7 +132,7 @@ export default function EditEventForm({
         className="h-32"
       />
       <div>
-        <p>Last opp bilde</p>
+        <p>Last opp bilde (.jpg)</p>
         <input
           type="file"
           className="w-48"
