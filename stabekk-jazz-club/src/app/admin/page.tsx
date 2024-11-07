@@ -39,6 +39,8 @@ const AdminPage = () => {
         password
       );
       console.log("User signed in:", userCredential.user);
+      setEmail("");
+      setPassword("");
     } catch (error) {
       setError("Invalid login credentials.");
       const firebaseError = error as { code: string; message: string };
@@ -74,7 +76,7 @@ const AdminPage = () => {
 
   // Display login form if the user is not logged in
   return (
-    <div className="grid gap-2 max-w-sm bg-gray-4 dark:bg-sky-950 p-4 rounded-lg">
+    <div className="grid gap-2 max-w-sm mx-auto sm:mt-12 bg-gray-4 dark:bg-sky-950 p-4 rounded-lg">
       <input
         type="email"
         value={email}

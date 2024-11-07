@@ -51,7 +51,7 @@ button {
 }
 
 a {
-  @apply text-sky-900 dark:text-sky-300 w-max;
+  @apply text-sky-900 dark:text-sky-300 w-max hover:underline;
 }
 
 input,
