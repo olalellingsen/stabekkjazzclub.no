@@ -32,7 +32,11 @@ export default function AdminEvents() {
           id: doc.id,
           ...doc.data(),
         })) as EventProps[];
-        setEvents(eventsData.sort((a, b) => a.date.seconds - b.date.seconds));
+        setEvents(
+          eventsData
+            .filter((event) => event.date.seconds > Date.now() / 1000)
+            .sort((a, b) => a.date.seconds - b.date.seconds)
+        );
       } catch (err) {
         console.error("Error fetching events:", err);
         setError("Failed to load events.");
@@ -58,7 +62,7 @@ export default function AdminEvents() {
   const handleUpdateEvent = async (updatedEvent: EventProps) => {
     try {
       const docRef = doc(db, "events", updatedEvent.id);
-      const { id, ...eventWithoutId } = updatedEvent;
+      const { ...eventWithoutId } = updatedEvent;
       await updateDoc(docRef, eventWithoutId);
       setEvents(
         events.map((event) =>
@@ -134,7 +138,7 @@ export default function AdminEvents() {
       />
       <br />
       <h2>Kommende konserter</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid sm:grid-cols-2">
         {events.map((event) => (
           <div
             key={event.id}

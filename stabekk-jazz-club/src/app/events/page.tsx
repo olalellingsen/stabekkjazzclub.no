@@ -50,7 +50,13 @@ async function Events() {
             key={event.id}
             className="flex flex-wrap gap-4 border-b border-gray-7 my-2"
           >
-            <p>{event.date.toDate().toLocaleDateString()}</p>
+            <p>
+              {event.date.toDate().toLocaleDateString("nb-NO", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </p>
             <p>{event.title}</p>
           </li>
         ))}
