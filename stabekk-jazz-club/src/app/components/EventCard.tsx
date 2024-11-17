@@ -1,4 +1,4 @@
-import { EventProps } from "../events/page";
+import { EventProps } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 
