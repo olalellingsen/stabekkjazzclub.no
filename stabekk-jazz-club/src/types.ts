@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-export type EventProps = {
+export interface EventProps {
   id: string;
   title: string;
   date: Timestamp;
@@ -9,4 +9,4 @@ export type EventProps = {
   venue: string;
   venueLink: string;
   img?: string;
-};
+}
