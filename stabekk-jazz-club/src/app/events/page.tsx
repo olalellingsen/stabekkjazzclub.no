@@ -1,20 +1,10 @@
 import { db } from "@/firebaseAdmin";
-import { Timestamp } from "firebase/firestore";
 import React from "react";
 import { EventCard } from "../components/EventCard";
-
-export interface EventProps {
-  id: string;
-  title: string;
-  date: Timestamp;
-  description: string;
-  tickets: string;
-  venue: string;
-  venueLink: string;
-  img?: string;
-}
+import { EventProps } from "@/types";
 
 async function Events() {
+  "use client";
   const querySnapshot = await db.collection("events").get();
   const events = querySnapshot.docs.map((doc) => ({
     id: doc.id,
